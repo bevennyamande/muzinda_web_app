@@ -1,0 +1,433 @@
+/*
+File:			custom.css
+Description:	Custom styles for Thesis
+
+BASIC USAGE:
+
+If you have enabled the custom stylesheet in the Thesis options panel, the <body> tag 
+will be appended with the "custom" class, like so: <body class="custom">. You can use 
+the "custom" class to override *any* CSS declarations contained in the style.css file.
+
+For example, if you wish to change the default link color to green, you would add the 
+following declarations to this file:
+
+	.custom a, .custom a:visited { color: #090; }	<--- This makes links green
+	.custom a:hover { color: #00f; }				<--- This makes links blue when you mouse over them
+
+WHY THIS WORKS:
+
+By using the "custom" class, you are creating more specific CSS declarations for HTML
+elements. CSS styling is applied through rules of specificity, and because declarations
+prepended with .custom are more specific, they get applied when the page is rendered!
+
+More information about styling your Thesis installation using this file can be found
+in the User's Guide:
+	http://diythemes.com/thesis/rtfm/customizing-thesis-with-customcss/
+*/
+
+.custom #header_area{display:none;}
+
+.custom #nav_area ul {border-bottom:none; border-left:none;}
+	.custom #nav_area ul li {border-width:0; margin-bottom:0; padding-bottom:0; background:none;}
+
+.custom #header {border-bottom:none;}
+
+.custom #header_area{display:none;}
+
+.custom #nav_area {background:#c3d9d6; padding:0.5em 0; border-bottom:1px solid #ddf;}
+	.custom #nav_area ul {border-bottom:none; border-left:none;}
+		.custom #nav_area ul li {border-width:0; margin-bottom:0; padding-bottom:0; background:none;}
+
+.custom #title_area {padding:1em 0; border-bottom:1px solid #c55;}
+	.custom #header {border-bottom:none;}
+        
+body {
+  font-family:Georgia,sans-serif;
+  font-style:normal;
+  font-variant:normal;
+  font-weight:normal;
+  line-height:normal;
+  text-align:left;
+}
+
+#page {
+    padding-top: 0px;
+    background: transparent;
+}
+
+#s {
+    background: url(search_icon.png) no-repeat scroll 100% 50%;
+}
+
+#email_subscribe {
+    background: url(email_rss.gif) no-repeat scroll 100% 50%;
+    position: relative;
+    top: -2em;
+}
+
+.thesis_widget_search h3 {
+    display: none;
+}
+
+.headline_area {
+    position: relative;
+}
+
+.sharebox_sharelink {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+}
+
+.headline_meta {
+    text-align: right;
+    margin-top: -1.5em;
+    font-size: 1.2em;
+}
+
+.headline_meta span, .headline_meta abbr {
+    text-transform: none;
+}
+
+#header #logo {
+    z-index: 150;
+}
+
+#header #logo a {
+    background: url('images/learnbydoing.png') no-repeat; 
+    height: 70px;
+    width: 553px;
+    margin: 0 auto;
+    text-indent:-9999px;
+    display: block;
+    z-index: 150;
+    padding-right: 284px;
+}
+
+.custom #nav_area {
+    display: none;
+}
+
+.custom #title_area {
+    border-bottom: none;
+    height: 70px;
+}
+
+.custom #header {
+    height: 30px;
+}
+
+.entry-title {
+    -x-system-font:none;
+    color:black;
+    font-family:'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif;
+    font-size:x-large;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:bold;
+    letter-spacing:0.2em;
+    line-height:1.8em;
+    margin:1.5em 0 0.75em;
+    position:relative;
+    top:-1.25em;
+}
+
+#content h2, h1 {
+    color:#cb0000;
+    font-size:18px;
+    font-weight:normal;
+    line-height:1.4em;
+    margin:2em 0 0;
+    padding:0 0 4px;
+    -x-system-font:none;
+}
+
+h1 {
+    color: #111111;
+}
+
+.sidebar .widget_recent_entries h3 {
+    background: #fff url('/hackito/wp-content/themes/thesis/custom/images/articles.gif') no-repeat; 
+    height: 18px;
+}
+
+.sourcebox {
+    -x-system-font:none;
+    border:1px solid #EEEEEE;
+    float:right;
+    font-family:'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif;
+    font-size:120%;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    line-height:1.4em;
+    margin:8px;
+    overflow:hidden;
+    padding:8px;
+    text-align:center;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+.sourcebox a {
+    text-transform:uppercase;
+}
+
+.code_table {
+    width: 590px;
+}
+
+.format_text pre {
+    width: 550px;
+}
+
+span.footnote {
+    background-color:#A0D9FD;
+    font-size:1em;
+    line-height:1.5em;
+    top:-0.25em;
+}
+
+.infobar {
+    font-family:Verdana,sans-serif;
+    border:1px dotted #BBBBBB;
+    float:right;
+    margin:5px;
+    overflow:hidden;
+    padding:5px;
+    font-size: 0.75em;
+}
+
+code {
+    font-family:Consolas,"Andale Mono",Courier,"Courier New";
+    line-height:1em;
+}
+
+.custom #content_box {
+    background: white;
+    margin-top: -70px;
+}
+
+#footer {
+    border-top: none;
+    display: none;
+}
+
+.author_comment, .bypostauthor {
+    background: transparent;
+}
+
+dl#comment_list dd {
+    border-bottom:none;
+}
+
+dl#comment_list dt {
+    border-top:1px dotted #BBBBBB;
+}
+
+dl#comment_list dt.author_comment, dl#comment_list dt.bypostauthor {
+    border-top:2px dotted #BB3A38;
+    background: transparent;
+}
+
+dl#comment_list dd.author_comment, dl#comment_list dd.bypostauthor {
+    background: transparent;
+}
+
+dl#comment_list {
+    border-top:none;
+}
+
+.thesis_widget_subscriptions {
+    margin-top: 50px;
+}
+
+.email_subscribe_form {
+    position: relative;
+    top: -20px;
+}
+
+.widget_recent_entries h3 {
+    position: relative;
+    left: -8px;
+}
+
+.comments_closed {
+    display: none;
+}
+
+#sidebar_1 {
+    border: none;
+}
+
+.code_comment {
+    color: green;
+}
+
+.code_keyword {
+    color: blue;
+}
+
+.code_string {
+    color: red;
+}
+
+div.grippie {
+    background:#EEEEEE url(/textarea_resizer/grippie.png) no-repeat scroll center 2px;
+    border-color:#DDDDDD;
+    border-style:solid;
+    border-width:0pt 1px 1px;
+    cursor:s-resize;
+    height:9px;
+    overflow:hidden;
+}
+
+.resizable-textarea textarea {
+    display:block;
+    margin-bottom:0pt;
+    width:95%;
+    height: 20%;
+}
+
+.post_footer {
+    margin-top: 1em;
+    border-top: 1px dotted #BBBBBB;
+    border-bottom: 1px dotted #BBBBBB;
+    padding-bottom: 1.5em;
+}
+
+.post_footer h3 {
+    margin: 0px;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.post_footer div {
+    padding-left: 25px;
+}
+
+#commentfooter {
+    background: transparent url(/blog/images/sprites.gif) no-repeat scroll 0px -38px !important;
+}
+
+#subfooter {
+    background: transparent url(/blog/images/sprites.gif) no-repeat scroll 0px 0px !important;
+}
+
+#bookfooter {
+    background: transparent url(/blog/images/sprites.gif) no-repeat scroll 0 -83px !important;
+}
+    
+
+.twitterfooter {
+    background: transparent url(/blog/images/sprites.gif) no-repeat scroll 0px -60px !important;
+}
+
+.gwt-SuggestBoxPopup {
+    background: white;
+}
+
+.teasers_box {
+    width: 525px;
+}
+
+.teaser {
+    width: 250px;
+}
+
+.teasers_box .left {
+    float: left;
+}
+
+.teasers_box .right {
+    float: right;
+}
+
+.teasers_box.first {
+    border: none;
+    padding-top: 0;
+}
+
+.articles_archive #comments, .articles_archive .headline_area, .articles_archive #disqus_thread, .articles_archive .dsq-brlink {
+    display: none;
+}
+    
+.articles_archive .teaser_date {
+    font-size:0.85em;
+    position:relative;
+    top:-1.5em;
+}
+
+.articles_archive #content_box {
+    float: left;
+    width: auto;
+}
+
+.articles_archive h4 a {
+    text-decoration: none;
+}
+
+.articles_archive h4 a:hover {
+    text-decoration: underline;
+}
+
+.articles_archive .entry-title, .articles_archive .teasers_box {
+    margin: 0;
+}
+
+.articles_archive .entry-title {
+    margin-top: 2em;
+}
+
+.headline_area h1, .headline_area h2, #archive_intro h1 {
+    font-size: 18px;
+    text-align: left;
+}
+
+#content {
+    margin-top: 10px;
+}
+
+.subtitle {
+    color: gray;
+    font-size: 14px;
+    margin: -54px auto;
+    padding-left: 200px;
+    width: 237px;
+}
+
+#tagline {
+    display: none;
+}
+
+.format_text .twoCodeBlock {
+    position: relative;
+}
+
+.format_text pre.twoCodeBlockLeft {
+    width: 45%;
+}
+
+.format_text pre.twoCodeBlockRight {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 45%;
+}
+
+
+body {
+	color: white;
+}
+
+#container {
+	color: black;
+}
+
+body.articles_archive li.widget_recent_entries, body.articles_archive #text-406181512 {
+	display: none;
+}

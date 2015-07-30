@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0058)http://www.zackgrossbart.com/hackito/search-engine-python/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./search-engine-python_files/saved_resource"></script><script src="./search-engine-python_files/twemoji.js" type="text/javascript"></script><script src="./search-engine-python_files/wp-emoji.js" type="text/javascript"></script><script type="text/javascript" src="./search-engine-python_files/saved_resource(1)"></script><script type="text/javascript" async="" src="./search-engine-python_files/embed.js"></script><script async="" type="text/javascript" src="./search-engine-python_files/count.js"></script></head><body class="custom">Create Your Own Search Engine with Python
+
+<title></title>
+<meta name="robots" content="noodp, noydir">
+<meta name="description" content="The ability to search a specific web site for the page you are looking for is a very useful feature. However, searching can be complicated and providing a good search experience can require knowledge of multiple programming languages. This article […]">
+<link rel="stylesheet" href="./search-engine-python_files/style.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="./search-engine-python_files/layout.css" type="text/css" media="screen, projection">
+<!--[if lte IE 8]><link rel="stylesheet" href="http://www.zackgrossbart.com/hackito/wp-content/themes/thesis_18/lib/css/ie.css?082410-162619" type="text/css" media="screen, projection" /><![endif]-->
+<link rel="stylesheet" href="./search-engine-python_files/custom.css" type="text/css" media="screen, projection">
+<link rel="canonical" href="./search-engine-python_files/search-engine-python.html">
+<link rel="alternate" type="application/rss+xml" title="Hackito Ergo Sum RSS Feed" href="http://feeds2.feedburner.com/zackgrossbart/hackito">
+<link rel="pingback" href="http://www.zackgrossbart.com/hackito/xmlrpc.php">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.zackgrossbart.com/hackito/xmlrpc.php?rsd">
+<link rel="alternate" type="application/rss+xml" title="Hackito Ergo Sum » Create Your Own Search Engine with Python Comments Feed" href="http://www.zackgrossbart.com/hackito/search-engine-python/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"wpemoji":"http:\/\/www.zackgrossbart.com\/hackito\/wp-includes\/js\/wp-emoji.js?ver=4.2.2","twemoji":"http:\/\/www.zackgrossbart.com\/hackito\/wp-includes\/js\/twemoji.js?ver=4.2.2"}};
+			( function( window, document, settings ) {
+	var src, ready;
+
+	/**
+	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
+	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param type {String} Whether to test for support of "simple" or "flag" emoji.
+	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( type ) {
+		var canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext && canvas.getContext( '2d' );
+
+		if ( ! context || ! context.fillText ) {
+			return false;
+		}
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		if ( type === 'flag' ) {
+			/*
+			 * This works because the image will be one of three things:
+			 * - Two empty squares, if the browser doesn't render emoji
+			 * - Two squares with 'G' and 'B' in them, if the browser doesn't render flag emoji
+			 * - The British flag
+			 *
+			 * The first two will encode to small images (1-2KB data URLs), the third will encode
+			 * to a larger image (4-5KB data URL).
+			 */
+			context.fillText( String.fromCharCode( 55356, 56812, 55356, 56807 ), 0, 0 );
+			return canvas.toDataURL().length > 3000;
+		} else {
+			/*
+			 * This creates a smiling emoji, and checks to see if there is any image data in the
+			 * center pixel. In browsers that don't support emoji, the character will be rendered
+			 * as an empty square, so the center pixel will be blank.
+			 */
+			context.fillText( String.fromCharCode( 55357, 56835 ), 0, 0 );
+			return context.getImageData( 16, 16, 1, 1 ).data[0] !== 0;
+		}
+	}
+
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+
+		script.src = src;
+		script.type = 'text/javascript';
+		document.getElementsByTagName( 'head' )[0].appendChild( script );
+	}
+
+	settings.supports = {
+		simple: browserSupportsEmoji( 'simple' ),
+		flag:   browserSupportsEmoji( 'flag' )
+	};
+
+	settings.DOMReady = false;
+	settings.readyCallback = function() {
+		settings.DOMReady = true;
+	};
+
+	if ( ! settings.supports.simple || ! settings.supports.flag ) {
+		ready = function() {
+			settings.readyCallback();
+		};
+
+		if ( document.addEventListener ) {
+			document.addEventListener( 'DOMContentLoaded', ready, false );
+			window.addEventListener( 'load', ready, false );
+		} else {
+			window.attachEvent( 'onload', ready );
+			document.attachEvent( 'onreadystatechange', function() {
+				if ( 'complete' === document.readyState ) {
+					settings.readyCallback();
+				}
+			} );
+		}
+
+		src = settings.source || {};
+
+		if ( src.concatemoji ) {
+			addScript( src.concatemoji );
+		} else if ( src.wpemoji && src.twemoji ) {
+			addScript( src.twemoji );
+			addScript( src.wpemoji );
+		}
+	}
+
+} )( window, document, window._wpemojiSettings );
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+        <script src="./search-engine-python_files/saved_resource(2)" type="text/javascript"></script>
+	
+
+	<div id="nav_area" class="full_width">
+		<div class="page">
+			<ul class="menu">
+<li class="tab tab-home"><a href="http://www.zackgrossbart.com/hackito" rel="nofollow">Home</a></li>
+<li class="rss"><a href="http://feeds2.feedburner.com/zackgrossbart/hackito" title="Hackito Ergo Sum RSS Feed" rel="nofollow">Subscribe</a></li>
+</ul>
+		</div>
+	</div>
+	<div id="title_area" class="full_width">
+		<div class="page">
+			<div id="header">
+						<p id="logo"><a href="http://www.zackgrossbart.com/hackito">Hackito Ergo Sum</a></p>
+		<p id="tagline"></p>
+    <a href="http://www.zackgrossbart.com/hackito">
+    <div class="subtitle">
+        28 long articles and open source examples about making real software
+    </div>
+    </a>
+    			</div>
+		</div>
+	</div>
+<div id="container">
+<div id="page">
+	<div id="header">
+	</div>
+	<div id="content_box">
+		<div id="content" class="hfeed">
+
+			<div class="post_box top post-7 post type-post status-publish format-standard hentry category-all category-python category-scripts" id="post-7">
+				<div class="headline_area">
+					<h1 class="entry-title">Create Your Own Search Engine with Python</h1>
+					<p class="headline_meta">by <span class="author vcard fn">Zack Grossbart</span> on <abbr class="published" title="2007-11-30">November 30, 2007</abbr></p>
+				</div>
+				<div class="format_text entry-content">
+<p>
+The ability to search a specific web site for the page you are looking for is a very useful feature.  However, searching can be complicated and providing a good search experience can require knowledge of multiple programming languages.  This article will demonstrate a simple search engine including a sample application you can run in your own site.  This sample application is also a good introduction to the Python programming language.
+</p>
+<p>
+This application is a combination of Python, JavaScript, CSS (Cascading Style Sheets), and HTML.  You can run this application on any server which supports CGI and has Python installed.  This application was tested with Python version 2.5.1.  I ran this application with the Apache HTTP server.  The JavaScript and style sheets for this page have been tested with Internet Explorer, Firefox, and Safari.
+</p>
+<p>
+The code in this application is free and is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.  That means you are welcome to use, copy, and change this code as much as you would like. If you find any bugs, have any comments, or make any improvements I would love to hear from you.  There are a couple of other programs needed to run this application.  They are all free, but some of them use different licenses.  You should make sure to read and understand each license before using a product.
+</p>
+<h2>Setup</h2>
+<div class="sourcebox">
+Get the <br><a href="http://zackgrossbart.com/hackito/bsamples/search.py.zip">source code</a>
+</div>
+<h3>Get the Source Code</h3>
+<p>
+You should start by downloading the source code for this sample.  It can be found <a href="http://zackgrossbart.com/hackito/bsamples/search.py.zip">here</a>.  Once you have downloaded it you can unzip it to a work directory on your computer.
+</p>
+<h3>Other Programs</h3>
+<p>
+This program has been designed to run with the <a href="http://www.python.org/">Python</a> interpretor.  You will need to have Python installed in order to use this program.  If you do not already have Python you must download and install it before you run this sample.
+</p>
+<p>
+This program can be run locally for testing, but it is meant to be run along with an HTTP server.  This program will run in any HTTP server which supports CGI, but it has only been testing with the <a href="http://httpd.apache.org/">Apache HTTP server</a>.
+</p>
+<h3>Run the Sample</h3>
+<p>
+Once you have installed Python and the Apache HTTP server you can run this program using the following steps.  These steps will generate an HTML document containing search results to the system console.  You can pipe this output to a file and open that file in your web browser.  You may need to either add the Python executable to your path or indicate the full path to that executable depending on your system configuration.</p>
+<ol>
+<li>Unzip the samples archive to a directory on your machine.</li>
+<li>Open a command prompt and change directories to the location you unzipped the sample in.</li>
+<li>You can run the command <code>python search.py &gt; searchoutput.html</code> to test this sample locally.</li>
+</ol>
+<p>
+This application has been configured to run via the command line interface for easy access and testing.  Configuration for a web server will be discussed later in this article.</p>
+<h2>Core Technologies</h2>
+<p>
+This program will use the following core technologies:</p>
+<ul>
+<li>Python</li>
+<li>JavaScript</li>
+<li>Cascading Style Sheets</li>
+<li>HTML</li>
+</ul>
+<p>
+This application is meant to be a useful sample of a web site search engine.  It is also a good introduction to Python, CSS, JavaScript, and HTML.  This sample will demonstrate how these three technologies can work together to create a rich and configurable user interface for searching your applications.
+</p>
+<h2>Why Python</h2>
+<p>
+There are a lot of web scripting languages and tools available.  PERL and Ruby come quickly to mind, but there are many more.  Python is a dynamically typed object oriented language.  In comparison to Java, Python allows you to reassign object types.  Python does not require all code to be within an object in the way that Java does.  Python can also work more like a traditional scripting language with less object use.
+</p>
+<p>
+PERL has a specialized syntax which can be difficult to learn and Ruby most commonly relies on the RAILS framework.  They are both very popular and this application could have easily been written with either of them.  The benefits of PERL vs. Ruby vs. Python have been debated many times and I will not go over them here.  This application could have been written in any one of those languages.  Python just happens to be the language I was most interested in when I first wrote this code.
+</p>
+<h2>How It Works</h2>
+<p>
+This application works as a combination of four technologies.  Some of the code in this application will run on your server and some will run in the browser.  It is important to remember the context in which the code will run when creating it.
+</p>
+<p><img src="./search-engine-python_files/search_flow.jpg" alt="search_flow" title="search_flow" width="789" height="540" class="aligncenter size-full wp-image-40"></p>
+<p>
+This sample includes a sample search form named Search.html.  You can customize this file as much as you want, but you must make sure that the name of the form controls remains the same. This form specifies an action URL of <code>/cgi-bin/search.py</code>.  You may have to change this URL to reflect the location you have placed the search script on your web server.  Once the user enters a search terms and presses the search button the data will be sent to the search.py script on the server.  This script will take the search terms, do the actual search, and return the search results.
+</p>
+<p>
+The search results page will be generated based on the SearchResults.html file which must be placed in the same directory as the search.py script.  This HTML file contains two special values <code>${SEARCH_TERMS_GO_HERE}</code> and <code>${SEARCH_RESULTS_GO_HERE}</code>.  These values will be replaced with the search terms and the search results respectively.  Each of the search results contains a link to the page where the terms were found and some special information for the JavaScript in each page to use when highlighting the search terms.  When the user clicks on one of these links they will get the HTML page containing the search terms with each term highlighted when it appears in the text.</p>
+<p>
+Each page with highlighting enabled must contain a couple of small small code references.  Somewhere in the header of each HTML file you must import the JavaScript and CSS files which know how to handle the search.  That code looks like this:</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">&lt;script type="text/javascript" src="../search.js" /&gt;
+&lt;style type="text/css" media="all"&gt;
+    @import "../SearchResults.css";
+&lt;/style&gt;
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>These files contain the JavaScript which will do the actual searching the the style sheet which indicates how the terms should be highlighted.  In addition to importing this code you must actually run it.  The code will be run in response to the <code>onload</code> event from the body tag.  That declaration is very simple. It looks like this:</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">&lt;body onload="doSearch();"&gt;
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>This code will be run when the page is loaded so the search terms will be highlighted properly.</p>
+<h2>General Search Algorithms and This One</h2>
+<p>
+<u>Sorting and Searching</u> by Donald Knuth was one of the first programming books I read.  This tome discusses most of the basic approaches to one of programming seminal problems:  searching.  Searching is a fundamentally difficult problem. There are many different search algorithms.  This program uses linear search, one of the most basic.  That means that the program simply opens each file, looks for the terms, and closes the file.  This program will not build any type of search index.</p>
+<p>
+A search index is a file or set of data built before the search is performed.  The index lists all the possible terms you could search for in a format which is fast to search and often sorted in a useful way like a tree.  Building a search index is a requirement for good performance when searching large sets of data.  However, linear search can be faster when working with smaller sets.  This program demonstrates just one of many possible searching algorithms.</p>
+<h2>Let’s Look at the Code</h2>
+<p>
+The code for this application is made up of two files search.py and search.js. search.py is the program which returns the search results from the server and search.js performs the search in the browser.  search.py will only run on the server and search.js will only run in the browser.  </p>
+<h3>search.py</h3>
+<p>
+search.py is a Python script which will parse the search terms, execute the search, and generate an HTML page containing the search results.  search.py was developed and tested as a CGI script.  CGI (Common Gateway Interface) is a simple way of interacting with interpreted scripts of many languages.  When a specific URL is called the script is called on the command line and passed the parameters of the URL.  This works especially well on UNIX systems where the first line of the file can be used to specify the way the file will be run.  </p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<span class="codecomment">
+<pre class="displaycode">#!/usr/bin/env python
+</pre>
+<p>
+</p></span></td>
+</tr>
+</tbody></table>
+<p>This line specifies that the file should be run with the program python wherever it is available in the server environment.  This line begins with the pound sign to indicate that it is a comment line and should not be processed like part of the program.
+</p>
+<p>
+This program is very generic and flexible, but there is one change which you will need to make before deploying it.  The program defines a variable indicating the base directory to look for HTML files in while searching.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">BASE_DIR = "test/"
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>This is the correct variable for running the program on the command line.  You will need to change this variable to point to the location of your HTML files when you run it on a web server.</p>
+<p>
+search.py needs to actually open and search each file.  Let’s look at a simplified version of the dosearch method.  The full method can be found in search.py in the sample application.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">def dosearch(terms, searchtype, case, adddir, files = []):
+    found = []
+
+    if files != None:
+        titlesrch = re.compile('&gt;title&lt;.*&gt;/title&lt;')<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote1">1</a></span>
+        for file in files:
+
+            title = ""
+            if not (file.lower().endswith("html") or file.lower().endswith("htm")):
+                continue<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote2">2</a></span>
+
+            filecontents = open(BASE_DIR + adddir + file, 'r').read()
+
+            titletmp = titlesrch.search(filecontents)<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote3">3</a></span>
+            if titletmp != None:
+                title = filecontents.strip()[titletmp.start() + 7:titletmp.end() - 8]
+
+            filecontents = remove_tags(filecontents)<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote4">4</a></span>
+            filecontents = filecontents.lstrip()
+            filecontents = filecontents.rstrip()
+
+
+            if dofind(filecontents, case, searchtype, terms) &gt; 0:<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote5">5</a></span>
+                found.append(title)
+                found.append(file)
+
+    return found<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote6">6</a></span>
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>When we search through a file we are looking for the search terms and for the title of the page.  We only care if the search terms are present in the page, but we need to actually get the text of the title tag so we will use a regular expression. Regular expressions are a powerful mechanism for string matching.  The regular expression which we are using indicates that we want all of the text (the <code>.*</code> part) between the tags <code>&lt;title&gt;</code> and <code>&lt;/title&gt;</code>.  We compile this regular expression ahead of time <span class="footnote"><a name="search_pynote1">1</a></span> so we can use it over and over for each file.  The title will be used as the text of the link on our search results page.</p>
+<p>
+Once we have compiled the regular expression we need to find the files to search for the terms in.  The full implementation of this function will recurse into subdirectories.  We don’t want to look in images or internal files, so we will limit our search to files which end in html or htm <span class="footnote"><a name="search_pynote2">2</a></span>.  When we open the file it will include the HTML tags and we will use those tags to find the title of the page<span class="footnote"><a name="search_pynote3">3</a></span>.  After we have found the title we will remove the HTML tags <span class="footnote"><a name="search_pynote4">4</a></span>.</p>
+<p>
+We need to make sure not to find the search terms if they appear within HTML tags.  The test file numbersandcolorswithtag.html is a test case for this with the tag <code>&lt;span class="blue" /&gt;</code>.  If the search terms include the word blue we do not want to find it in this tag.  The easiest way to do this is to remove any HTML tags before we try to find the search term.  The best way to do this would be to parse the HTML in order to remove all the tags, but that would also be complex and slow.  We are just searching for the &lt; and the &gt; characters which start and end the tags.  Once we have removed the HTML tags we can also remove any excess white space before actually doing the search<span class="footnote"><a name="search_pynote5">5</a></span>.  Once we have gathered the search results we can return a <a href="http://docs.python.org/tut/node7.html#SECTION007300000000000000000">tuple</a> containing the search results <span class="footnote"><a name="search_pynote6">6</a></span>.</p>
+<p>
+Once we have found the search results we need to generate the results page.  This means we need to create an HTML page with the search results formatted in list format.  Let’s look at a simplified version of the <code>doresultspage</code> and <code>doresults</code> functions.  The full version of these functions are available in search.py in the sample code.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">def doresultspage(terms = [], results = []):
+    for line in open("SearchResults.html", 'r'):<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote7">1</a></span>
+        if line.find("${SEARCH_RESULTS_GO_HERE}") != -1:
+            doresults(terms, results)<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote8">2</a></span>
+        elif line.find("${SEARCH_TERMS_GO_HERE}") != -1:
+            termindex = line.find("${SEARCH_TERMS_GO_HERE}")
+            searchterms = "<span id="\&quot;search_terms\&quot;">" + terms + "</span>\n"
+            print line.replace("${SEARCH_TERMS_GO_HERE}", searchterms)<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote9">3</a></span>
+        else:
+            print line<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote10">4</a></span>
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>The creation of the search results page starts with the <code>doresultspage</code> function.  This function will start by reading in the SearchResults.html file <span class="footnote"><a name="search_pynote7">1</a></span>.  This file is an HTML file which can be customized to make the search results page match the look and feel of your application. This file can be customized to change all of the contents and formatting around the search terms and results.  There are two special tokens in this page.  The <code>${SEARCH_RESULTS_GO_HERE}</code> string will be replaced by the results of the search in the <code>doresults</code> function <span class="footnote"><a name="search_pynote8">2</a></span>.  The search terms will be inserted where the <code>${SEARCH_TERMS_GO_HERE}</code> string is found <span class="footnote"><a name="search_pynote9">3</a></span>.  All other parts of the file will be written out without any changes <span class="footnote"><a name="search_pynote10">4</a></span>.</p>
+<p>
+The <code>doresults</code> function will handle writing the actual search results.  The search results are formatted as an ordered list contained within a div tag.  This div tag is given the id <code>search_results</code> so it can be customized with CSS.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">def doresults(terms = [], results = []):
+    print "&lt;div id=\"search_results\"&gt;\n&lt;ol&gt;"
+    if len(results) == 0:
+        print "&lt;h3&gt;Your search did not return any results.&lt;/h3&gt;"<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote11">1</a></span>
+    for i, file in enumeratez(results):<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote12">2</a></span>
+        if i % 2 == 1:
+            continue
+        print "&lt;li&gt;&lt;a href=\"test/" + results[i + 1] + \
+        "?search=true&amp;term=" + terms.replace("\"", "%22") + "\"&gt;"<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote13">3</a></span>
+
+        print results[i] + "&lt;/a&gt;\n"
+    print "&lt;/ol&gt;\n&lt;/div&gt;\n"<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote14">4</a></span>
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>This method starts by making sure the search had results <span class="footnote"><a name="search_pynote11">1</a></span>.  If the search did not return any results then we want to present a good message to the user.  If the search did return results then we will iterate through them and generate the HTML code needed to represent them.  Python added a new built-in function named <code>enumerate</code> in version 2.3.  We want to make sure that our code will run on older versions of Python so it is using a custom version of the <code>enumerate</code> function named <code>enumeratez</code> <span class="footnote"><a name="search_pynote12">2</a></span>.  If you are using a later version of Python then you can replace each call to this function with a call to the standard one.</p>
+<p>
+When we generate the links to the search results <span class="footnote"><a name="search_pynote13">3</a></span> we need to add some special parameters to the URL.  These parameters will be read by search.js in order to highlight the search terms in the final code.  There are special characters which are not allowed in HTTP URLs.  These characters must be represented with an escape character sequence.  Most of these characters are removed from our search terms before this point in the code, but we need to make sure that double quote characters are escaped.  Once we have written out all the search results we need to make sure to generate the close tags <span class="footnote"><a name="search_pynote14">4</a></span>.
+</p>
+<h3>search.js</h3>
+<p>
+Once the user gets the results of their search and clicks on a page in the search results they want to see their search term on that page.  In order to dynamically highlight the search terms in the results page we will use JavaScript running in the browser. We have already seen what JavaScript references must be added to the HTML page and how the search results page will add parameters to the URL for the results page. Those parameters are used in search.js.</p>
+<p>
+There is a lot of processing in the search.js file, but the actual search happens in the doSearchHighlight function.  Let’s look at a simplified version of this function.  The full version is available in the file search.js as part of the sample code.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">function doSearchHighlight(bodyText, searchTerm)
+{
+   highlightStartTag = "&lt;span class=\"searchterm\"&gt;";<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote15">1</a></span>
+   highlightEndTag = "&lt;/span&gt;";
+
+   var newText = "";
+   var i = -1;
+   var lSearchTerm = searchTerm.toLowerCase();
+   var lBodyText = bodyText.toLowerCase();
+
+   while (bodyText.length &gt; 0) {
+      i = lBodyText.indexOf(lSearchTerm, i+1);
+      if (i &lt; 0) {
+         newText += bodyText;
+         bodyText = "";<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote16">2</a></span>
+      } else {
+         if (bodyText.lastIndexOf("&gt;", i) &gt;= bodyText.lastIndexOf("&lt;", i)) {<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote17">3</a></span>
+            if (lBodyText.lastIndexOf("/script&gt;", i) &gt;=
+                lBodyText.lastIndexOf("&lt;script", i)) {<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote18">4</a></span>
+
+               newText += bodyText.substring(0, i) + highlightStartTag +
+                   bodyText.substr(i, searchTerm.length) + highlightEndTag;<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote19">5</a></span>
+               bodyText = bodyText.substr(i + searchTerm.length);
+               lBodyText = bodyText.toLowerCase();
+               i = -1;<span class="footnote"><a href="http://www.zackgrossbart.com/hackito/search-engine-python/#search_pynote120">5</a></span>
+            }
+         }
+      }
+   }
+
+   return newText;
+}
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>This function will search through the text of the HTML and wrap each of the search terms in a span tag <span class="footnote"><a name="search_pynote15">1</a></span>.  This span tag will allow the search results to be highlighted in a configurable way. The JavaScript needs to handle the situation where none of the search terms are actually found <span class="footnote"><a name="search_pynote16">2</a></span>.  This shouldn’t happen in our application, but it is good defensive coding.  We need to make sure we don’t replace HTML tags<span class="footnote"><a name="search_pynote17">3</a></span> or code within script tags<span class="footnote"><a name="search_pynote18">4</a></span>.  Once we find the term we will wrap it in our special span tag <span class="footnote"><a name="search_pynote19">5</a></span>. </p>
+<p>
+This JavaScript code is dynamically generating new HTML tags into the page.  These tags will never be written anywhere and will not show up if you view the source of the HTML page.  They are just available in memory and are strictly temporary.</p>
+<h3>SearchResults.css</h3>
+<p>
+Once the JavaScript functions have run the span tags with the class <code>searchterm</code> will have been added to the HTML file.  This alone will not change the formatting of the search terms.  We will make the text blue with a yellow background in the SearchResults.css file.</p>
+<table class="code_table" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td class="code-outline">
+<pre class="displaycode">.searchterm {
+   color: blue;
+   background-color: yellow;
+}
+</pre>
+</td>
+</tr>
+</tbody></table>
+<p>This stylesheet can be edited in many different ways.  The search terms could have a red background, be bold, or use a larger font.  There are many options in cascading style sheets. Changing this one value will change every search term.
+</p>
+<h2>Running This Application in the Real World</h2>
+<p>
+Using the command line Python processor is an easy way to test this application, but you will need to configure this application to run with a web server if you want to use it as part of your web site.  This application can be configured on any HTTP server which supports CGI and has Python installed.  Apache HTTP server will also support Python as a module as well as a CGI script.  This application will run on UNIX, Windows, and MacOS.  Configuring this application will be different on different system, but here are some general guidelines.</p>
+<ul>
+<li>You will need to change the BASE_DIR in search.py to point to your HTML directory.</li>
+<li>You may need to change the path to SearchResults.html in the search.py script.</li>
+<li>You will need to enable CGI or install the Python module.</li>
+<li>Remember to make the search.py file executable if you want to run this application in a UNIX environment.</li>
+</ul>
+<p>Good luck!
+</p>
+<h2>Conclusion</h2>
+<p>
+In this sample we have seen how Python, JavaScript, CSS, and HTML can be combined to provide a powerful search engine for your web application.  We have introduced basic search patterns and looked at the CGI interface.  There is also much more information, comments, and sample code available in the source archive for this sample. </p>
+<p>
+I hope this has been a useful and educational example. You can take this example and adapt it for use in your web application.  You can also edit the CSS and HTML files to change the look of the application without changing any of the code as well as adding more features or even a search index to the search.py script.  If you come up with any good features I would love to hear about them.
+</p>
+<p></p>
+<p>Part of the image in this document was made using an image by Dr. E.F. Tymac.  That image and the resulting image are both licensed under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike 2.5 License</a>.</p>
+        <div class="post_footer">
+            <h3>What next?</h3>
+            
+	    <div id="bookfooter">
+                Find out about Zack's book <a href="http://www.zackgrossbart.com/blog">The One Minute Commute</a>
+            </div>
+	    
+            <div id="commentfooter">
+                <a href="http://www.zackgrossbart.com/hackito/search-engine-python/#comment">Leave a comment</a>
+            </div>
+            
+            <div class="twitterfooter">
+                <a href="http://twitter.com/home/?status=Create+Your+Own+Search+Engine+with+Python+http%3A%2F%2Fwww.zackgrossbart.com%2Fhackito%2Fsearch-engine-python%2F">Tweet this Post</a>
+            </div>
+            
+            <div id="subfooter">
+                <a href="">Subscribe to Hackito Ergo Sum</a>
+            </div>
+            
+	    <div class="twitterfooter">
+                <a href="http://twitter.com/ZackGrossbart">Follow Zack on Twitter</a>
+            </div>
+        </div>
+    				</div>
+			</div>
+
+
+<div id="disqus_thread"><iframe id="dsq-1" data-disqus-uid="1" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./search-engine-python_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 3234px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+<script type="text/javascript">
+var disqus_url = 'http://www.zackgrossbart.com/hackito/search-engine-python/';
+var disqus_identifier = '7 http://www.zackgrossbart.com/hackito/2007/11/30/create-your-own-search-engine-with-python/';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'hackitoergosum';
+var disqus_title = "Create Your Own Search Engine with Python";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=7';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+		</div>
+
+		<div id="sidebars">
+			<div id="sidebar_1" class="sidebar">
+				<ul class="sidebar_list">
+		<li class="widget widget_recent_entries" id="recent-posts-2">		<h3> </h3>		<ul>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/smash/">Hashbang, Dandelions, and a Web Drawing Throwdown</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/spiffy-nodejs/">Running Spiffy UI with Node.js</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/spiffyui-open-source/">The Spiffy UI Framework is Open Source</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/touchslider/">Creating a Mobile Touch Slide Panel with JQuery</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/techdebt/">How To Fix Your Software’s Technical Debt, Program Faster, and Spend More of Your Time Writing Useful Code</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/gwt-slider/">Creating a GWT Wrapper for the JQuery UI Slider</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/antiptrn-gwt2/">4 More GWT Anti-patterns</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/spiffy/">Our Spiffy UI</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/edcal_stats/">Collecting Statistics for The WordPress Editorial Calendar Plugin</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/gwt-rest-auto/">Creating a Multi-Valued Auto-Complete Field Using GWT SuggestBox and REST</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/rpt-css/">Fluid Grids, Vertical Rhythm, and CSS Blocking</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/gwt-rest/">Calling REST from GWT with a little bit of JQuery</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/edcal/">Creating a JQuery Powered Posts Calendar for WordPress</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/present/">Give Your Next Presentation In Your Browser With JQuery</a>
+						</li>
+					<li>
+				<a href="http://www.zackgrossbart.com/hackito/omc/">My New Book The One Minute Commute</a>
+						</li>
+				</ul>
+		</li><li class="widget widget_text" id="text-406181512">			<div class="textwidget"><h4><a href="http://www.zackgrossbart.com/hackito/articles">More Articles</a></h4></div>
+		</li><li class="widget widget_text" id="text-406181513">			<div class="textwidget"><a href="http://www.zackgrossbart.com/blog/more-about-zack/">Everything Zack</a></div>
+		</li><li class="widget widget_pages" id="pages-2"><h3> </h3>		<ul>
+			<li class="page_item page-item-11"><a href="http://www.zackgrossbart.com/hackito/about-2/">About Hackito Ergo Sum</a></li>
+<li class="page_item page-item-57"><a href="http://www.zackgrossbart.com/hackito/uncopyright/">Uncopyright</a></li>
+		</ul>
+		</li><li class="widget thesis_widget_subscriptions" id="subscriptions">
+<h3></h3>
+<ul>
+	<li class="sub_rss"><a href="http://feeds2.feedburner.com/zackgrossbart/hackito">Subscribe</a></li>
+</ul>
+</li>
+<li class="widget widget_text" id="text-406181511"><h3> </h3>			<div class="textwidget"><form class="email_subscribe_form" style="text-align:left;" action="http://www.feedburner.com/fb/a/emailverify" method="post" target="popupwindow" id="newUserBox" onsubmit="window.open(&#39;http://feedburner.google.com/fb/a/mailverify&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=550,height=520&#39;);return true">
+
+    <p>
+        Get this blog sent to your inbox.  Type your email address and press enter:<br>
+        
+        <input type="text" style="width:140px" name="email">
+        
+        <input type="hidden" value="zackgrossbart/hackito" name="uri">
+        <input type="hidden" name="loc" value="en_US">
+        <input type="submit" value="Subscribe">
+    </p>
+</form></div>
+		</li>				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<p>Get smart with the <a href="http://diythemes.com/thesis/">Thesis WordPress Theme</a> from DIYthemes.</p>
+        <script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'hackitoergosum';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+        	</div>
+</div>
+</div>
+<!--[if lte IE 8]>
+<div id="ie_clear"></div>
+<![endif]-->
+
+<div class="drop-hint" id="drop-to-share-hint" style="display: none; background-image: url(chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/dropToShareHint.png); background-size: 67px 327px;"><a class="share-btn-close"></a><a class="btn-options"></a><div class="drop-hint-bubble" id="drop-hint-bubble-share" style="display: none; background-image: url(chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/dropToShareHintBubble.png); background-size: 253px 79px;"></div></div><div class="drop-hint" id="drop-to-search-hint" style="display: none; background-image: url(chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/dropToSearchHint.png); background-size: 67px 327px;"><a class="search-btn-close"></a><a class="btn-options"></a><div class="drop-hint-bubble" id="drop-hint-bubble-search" style="display: none; background-image: url(chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/dropToSearchHintBubble.png); background-size: 215px 79px;"></div></div><div class="dropAreaContainer" style="display: none; right: 0px;"><div class="searchDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(220, 220, 220, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/web-search-content.png" style="max-height: 81px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="searchDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(240, 240, 240, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/video-search-content.png" style="max-height: 40px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="searchDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(220, 220, 220, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/google-images-content.png" style="max-height: 88px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="searchDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(240, 240, 240, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/google-translate-content.png" style="max-height: 82px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="searchDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(220, 220, 220, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/wikipedia-content.png" style="max-height: 86px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="dropAreaSettings" style="width: 142px; height: 16.6666666666667%; background-color: rgba(58, 58, 58, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/btn_settings.png" style="max-height: 25px; height: 90%; background-color: transparent;" class="disable-manipulations"></div></div><div class="dropAreaContainer" style="display: none; left: 0px;"><div class="shareDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(60, 90, 152, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/facebook-share-content.png" style="max-height: 25px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="shareDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(233, 246, 255, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/twitter-content.png" style="max-height: 23px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="shareDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(235, 235, 235, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/pinterest-content.png" style="max-height: 28px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="shareDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(58, 58, 58, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/google-plus-center-content.png" style="max-height: 56px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="shareDropArea" style="width: 142px; height: 16.6666666666667%; background-color: rgba(248, 248, 248, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/providers/linkedin-content.png" style="max-height: 31px; height: 90%; background-color: transparent;" class="disable-manipulations"></div><div class="dropAreaSettings" style="width: 142px; height: 16.6666666666667%; background-color: rgba(58, 58, 58, 0.901961);"><span class="disable-manipulations"></span><img src="chrome-extension://cipmepknanmbbaneimacddfemfbfgpgo/images/content/btn_settings.png" style="max-height: 25px; height: 90%; background-color: transparent;" class="disable-manipulations"></div></div></body></html>

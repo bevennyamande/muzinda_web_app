@@ -1,0 +1,23 @@
+body {
+    padding-top: 70px;
+    background-color:#FFE4B5;
+
+}
+.panel-footer {
+	text-align: center;
+	background-color: black;
+	color:white;
+	margin: 0;
+	
+}
+.carousel slide {
+
+	width: 600px;
+	height: 800px
+}
+.navbar .navbar-inverse, .navbar-fixed-top {
+  
+	padding-bottom: 1.6px
+	margin :4px;
+	border-bottom: 5px
+}
